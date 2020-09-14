@@ -14,7 +14,7 @@
                             </a>
                             <div class="collapse" id="session" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="../session/create.php">Create Session</a>
+                                    <a class="nav-link" href="/project/session/create.php">Create Session</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">All Sessions</a>
                                 </nav>
                             </div>
