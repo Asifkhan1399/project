@@ -1,0 +1,54 @@
+CREATE TABLE users(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255),
+    email varchar(255),
+    password varchar(255),
+    role varchar(255)
+);
+INSERT INTO users(name, email, password, role)
+VALUES ('Sen', 'Anik', 'value3', 30, 2);
+
+CREATE TABLE course(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    course_title varchar(255),
+    short_code varchar(255),
+    course_type varchar(255),
+    credit varchar(255)
+);
+INSERT INTO course(course_title, short_code, course_type, credit)
+VALUES ('Software Engineering & Information System Design', 'SEISD', 'Lab', '4');
+
+CREATE TABLE teacher(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255),
+    email varchar(255),
+    mobileno varchar(255),
+    gender varchar(255)
+);
+INSERT INTO teacher(name, email, mobileno, gender)
+VALUES ('kollol', 'k@gmail.com', '0124962', 'Male');
+
+CREATE TABLE student(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255),
+    roll varchar(255),
+    email varchar(255),
+    dob varchar(255)
+);
+INSERT INTO student(name, roll, email, dob)
+VALUES ('DOla', '1465', 'd@gmail.com', '2000-04-14');
+
+
+CREATE TABLE sessions(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title varchar(255),
+    status varchar(255)
+);
+
+CREATE TABLE sections(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title varchar(255),
+    status boolean
+);
+
+// A, A1, A2, B, B1, B2, D
