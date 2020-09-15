@@ -15,7 +15,7 @@
                             <div class="collapse" id="session" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="/project/session/create.php">Create Session</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">All Sessions</a>
+                                    <a class="nav-link" href="/project/session/list.php">All Sessions</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#section" aria-expanded="false" aria-controls="collapsePages">
@@ -25,8 +25,8 @@
                             </a>
                             <div class="collapse" id="section" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Create Section</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">All Sections</a>
+                                    <a class="nav-link" href="/project/section/create.php">Create Section</a>
+                                    <a class="nav-link" href="/project/section/list.php">All Sections</a>
                                 </nav>
                             </div>
 
@@ -37,21 +37,21 @@
                             </a>
                             <div class="collapse" id="course" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Create Course</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">All Courses</a>
+                                    <a class="nav-link" href="/project/course/create.php">Create Course</a>
+                                    <a class="nav-link" href="/project/course/list.php">All Courses</a>
                                 </nav>
                             </div>
 
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="false" aria-controls="collapsePages">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#teacher" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Manage Student/Teacher
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="user" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <div class="collapse" id="teacher" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="layout-static.html">Create Student</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">All Students</a>
-                                    <a class="nav-link" href="layout-static.html">Create Teacher</a>
+                                    <a class="nav-link" href="/project/teacher/create.php">Create Teacher</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">All Teachers</a>
                                 </nav>
                             </div>
