@@ -1,20 +1,11 @@
-<?php 
-
-session_start();
-
-if(!isset( $_SESSION['username'])){
-    header('Location: login.php');
-}
-if(isset( $_SESSION['userrole']) && $_SESSION['userrole'] == 'student'){
-    header('Location: unauthorize.php');
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<?php include '../includes/head.php'; ?>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1st Class</title>
+    <title>All courses</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
         .modal {
@@ -22,37 +13,51 @@ if(isset( $_SESSION['userrole']) && $_SESSION['userrole'] == 'student'){
         }
     </style>
 </head>
-<?php include 'connection.php'; ?>
-<body>
+<?php include '../connection.php'; ?>
+<body class="sb-nav-fixed">
+<?php include '../includes/nav.php'; ?>
+<div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+            <?php include '../includes/sidebar.php'; ?>
+            </div>
+            <div id="layoutSidenav_content">
+            <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">List of All Teachers</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">All Teachers</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                List of All Teachers
+                            </div>
     <div class="container">
-        <div>
-            <h2>List All Student</h2>
-           <a class="btn btn-info" href="student.php">ADD STUDENT</a>
-        </div>
 
         <div class="row">
             <div class="col-md-12">
                 
                 <table class="table table-dark table-striped">
                     <thead>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Roll</th>
-                        <th>DOB</th>
+                        <th>Teacher Name</th>
+                        <th>Teacher Email</th>
+                        <th>Password</th>
+                        <th>Role</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
                     <?php 
-                        $str = "SELECT students";
+                        $str = "SELECT * from users  WHERE role='teacher'";
                         $results = mysqli_query($conn, $str);
                         while($row = mysqli_fetch_array($results)) {  ?>
                             <tr>
                                 <td><?php echo $row['name'] ?></td>
                                 <td><?php echo $row['email'] ?></td>
-                                <td><?php echo $row['roll'] ?></td>
-                                <td><?php echo $row['dob'] ?></td>
-                               
-                                    <a class="btn btn-primary" href="edit-student.php?id=<?php echo $row['id'] ?>">Edit</a>
+                                <td><?php echo $row['password'] ?></td>
+                                <td><?php echo $row['role'] ?></td>
+                            
+                                <td>
+                                    <a class="btn btn-primary" href="/project/teacher/edit-teacher.php?id=<?php echo $row['id'] ?>">Edit</a>
                                     <a class="btn btn-danger" data-toggle="modal" data-target="#mm<?php echo $row['id'] ?>">Delete</a>
                                     <div class="modal" id="mm<?php echo $row['id'] ?>">
                                         <div class="modal-dialog">
@@ -71,7 +76,7 @@ if(isset( $_SESSION['userrole']) && $_SESSION['userrole'] == 'student'){
                                                 
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                <a href="delete-student.php?studentid=<?php echo $row['id'] ?>" class="btn btn-success">Yes</a>
+                                                <a href="/project/teacher/delete-teacher.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Yes</a>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                                 </div>
                                                 
@@ -80,7 +85,7 @@ if(isset( $_SESSION['userrole']) && $_SESSION['userrole'] == 'student'){
                                     </div>
                                 </td>
                             </tr>  
-                            <?php 
+                            <?php }
                     ?>
                         
                     </tbody>
@@ -88,8 +93,15 @@ if(isset( $_SESSION['userrole']) && $_SESSION['userrole'] == 'student'){
             </div>
         </div>
     </div>
+    </main>
+    <?php include '../includes/footer.php'; ?>
+    </div>
+    </div>
+    <?php include '../includes/scripts.php'; ?>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    
 </body>
 </html>

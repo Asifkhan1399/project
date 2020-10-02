@@ -18,6 +18,8 @@ CREATE TABLE course(
 INSERT INTO course(course_title, short_code, course_type, credit)
 VALUES ('Software Engineering & Information System Design', 'SEISD', 'Lab', '4');
 
+
+
 CREATE TABLE teacher(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name varchar(255),
@@ -51,4 +53,29 @@ CREATE TABLE sections(
     status boolean
 );
 
+CREATE TABLE course_assign(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    session_id int,
+    FOREIGN KEY (session_id) REFERENCES sessions(id),
+    course_id int,
+    FOREIGN KEY (course_id) REFERENCES courses(id),
+    teacher_id int,
+    FOREIGN KEY (teacher_id) REFERENCES users(id),
+    section_id int,
+    FOREIGN KEY (section_id) REFERENCES sections(id),
+  
+);
+
+
 // A, A1, A2, B, B1, B2, D
+
+
+CREATE TABLE distributions(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    course_id int,
+    FOREIGN KEY (course_id) REFERENCES courses(id),
+    session_id int,
+    FOREIGN KEY (session_id) REFERENCES sessions(id),
+    category_name varchar(255),
+    catagory_value int
+);

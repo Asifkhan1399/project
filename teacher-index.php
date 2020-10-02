@@ -1,17 +1,3 @@
-<?php 
-
-session_start();
-
-if(!isset( $_SESSION['username'])){
-    header('Location: login.php');
-}
-if(isset( $_SESSION['userrole']) && $_SESSION['userrole'] == 'student'){
-    header('Location: student-index.php');
-}
-if(isset( $_SESSION['userrole']) && $_SESSION['userrole'] == 'teacher'){
-    header('Location: teacher-index.php');
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,14 +7,14 @@ if(isset( $_SESSION['userrole']) && $_SESSION['userrole'] == 'teacher'){
     <?php include 'includes/nav.php'; ?>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-            <?php include 'includes/sidebar.php'; ?>
+            <?php include 'includes/teacher-sidebar.php'; ?>
             </div>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Dashboard</h1>
+                        <h1 class="mt-4">Teacher Dashboard</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item active">Teacher Dashboard</li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">

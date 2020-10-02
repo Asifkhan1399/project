@@ -13,36 +13,39 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Teacher</h1>
+                        <h1 class="mt-4">Student</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Create Teacher</li>
+                            <li class="breadcrumb-item active">Create Student</li>
                         </ol>
                        
                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                Create Teacher
+                                Create Student
                             </div>
                             <div class="card-body">
                                <!-- insert your form here -->
                                <form method="post" action="">
                                     <div class="form-group">
-                                        <input name="name" placeholder="Enter Teacher Name" type="text" class="form-control" id="">
+                                        <input name="name" placeholder="Enter Student Name" type="text" class="form-control" id="">
                                     </div>
                                    <div class="form-group">
-                                         <input type="email" placeholder="Enter Teacher Email" name="email" class="form-control" id="">
+                                         <input type="email" placeholder="Enter Student Email" name="email" class="form-control" id="">
                                    </div>
                                    <div class="form-group">
-                                         <input type="password" placeholder="Enter Teacher Password" name="password" class="form-control" id="">
+                                         <input type="roll" placeholder="Enter Student Roll" name="roll" class="form-control" id="">
                                    </div>
                                    <div class="form-group">
-                                         <input type="password" placeholder="Confirm Teacher Password" name="cpass" class="form-control" id="">
+                                         <input type="password" placeholder="Enter Student Password" name="password" class="form-control" id="">
+                                   </div>
+                                   <div class="form-group">
+                                         <input type="password" placeholder="Confirm Student Password" name="cpass" class="form-control" id="">
                                    </div>
                                 
                                    <div class="form-group">
                                         <input type="submit" value="Create" name="submit" class="btn btn-danger">
-                                        <a class="btn btn-dark" href="/project/teacher/list.php">List of All Teacher</a>
+                                        <a class="btn btn-dark" href="/project/teacher/slist.php">List of All Students</a>
                                    </div>
                                </form>
                             </div>
@@ -61,10 +64,11 @@
         
       $name = $_POST['name'];
       $email = $_POST['email'];
+      $roll = $_POST['roll'];
       $password = md5( $_POST['password']);
       $cpass = md5($_POST['cpass']);
 
-      $str = "INSERT INTO users (name, email, password,role) VALUES ('".$name."', '".$email."', '".$cpass."','teacher')";
+      $str = "INSERT INTO users (name, email, roll, password, role) VALUES ('".$name."', '".$email."','".$roll."', '".$cpass."','student')";
       mysqli_query($conn, $str);
     }
 
