@@ -28,8 +28,8 @@
                                <!-- insert your form here -->
                                <form method="post" action="">
                                     <div class="form-group">
-                                        <label for="">Enter Name</label>
-                                        <input name="name" type="text" class="form-control">
+                                        <label for="">Enter Teacher Name</label>
+                                        <input name="name" placeholder="Enter Teacher Name" type="text" class="form-control">
                                     </div>
                                    <div class="form-group">
                                    <label for="">SELECT Teacher</label>
@@ -48,8 +48,8 @@
                         
                                    </div>
                                    <div class="form-group">
-                                   <label for="">Teacher Email</label>
-                                   <input type="text" placeholder="Enter Teacher Email" name="email" class="form-control" id="">
+                                   <label for="">Enter Teacher Email</label>
+                                   <input type="email" placeholder="Enter Teacher Email" name="email" class="form-control" id="">
 
                             <?php 
                                 $str = "SELECT id,email from users";
