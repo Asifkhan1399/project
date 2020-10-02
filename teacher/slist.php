@@ -23,14 +23,14 @@
             <div id="layoutSidenav_content">
             <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">List of All courses</h1>
+                        <h1 class="mt-4">List of All Students</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">All Courses</li>
+                            <li class="breadcrumb-item active">All Students</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                List of All Courses
+                                List of All Students
                             </div>
     <div class="container">
 
@@ -39,25 +39,27 @@
                 
                 <table class="table table-dark table-striped">
                     <thead>
-                        <th>Course Title</th>
-                        <th>Course Short Code</th>
-                        <th>Course Type</th>
-                        <th>Credit</th>
+                        <th>Student Name</th>
+                        <th>Student Email</th>
+                        <th>Student Roll</th>
+                        <th>Password</th>
+                        <th>Role</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
                     <?php 
-                        $str = "SELECT * from courses";
+                        $str = "SELECT * from users  WHERE role='student'";
                         $results = mysqli_query($conn, $str);
                         while($row = mysqli_fetch_array($results)) {  ?>
                             <tr>
-                                <td><?php echo $row['course_title'] ?></td>
-                                <td><?php echo $row['short_code'] ?></td>
-                                <td><?php echo $row['course_type'] ?></td>
-                                <td><?php echo $row['credit'] ?></td>
+                                <td><?php echo $row['name'] ?></td>
+                                <td><?php echo $row['email'] ?></td>
+                                <td><?php echo $row['roll'] ?></td>
+                                <td><?php echo $row['password'] ?></td>
+                                <td><?php echo $row['role'] ?></td>
                             
                                 <td>
-                                    <a class="btn btn-primary" href="/project/course/edit-course.php?id=<?php echo $row['id'] ?>">Edit</a>
+                                    <a class="btn btn-primary" href="/project/teacher/edit-student.php?id=<?php echo $row['id'] ?>">Edit</a>
                                     <a class="btn btn-danger" data-toggle="modal" data-target="#mm<?php echo $row['id'] ?>">Delete</a>
                                     <div class="modal" id="mm<?php echo $row['id'] ?>">
                                         <div class="modal-dialog">
@@ -71,12 +73,12 @@
                                                 
                                                 <!-- Modal body -->
                                                 <div class="modal-body">
-                                               Are you sure you want to delete <b><?php echo $row['course_title'] ?> </b> ? 
+                                               Are you sure you want to delete <b><?php echo $row['name'] ?> </b> ? 
                                                 </div>
                                                 
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                <a href="/project/course/delete-course.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Yes</a>
+                                                <a href="/project/teacher/delete-student.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Yes</a>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                                 </div>
                                                 

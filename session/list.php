@@ -50,7 +50,7 @@
                         while($row = mysqli_fetch_array($results)) {  ?>
                             <tr>
                                 <td><?php echo $row['title'] ?></td>
-                                <td><?php echo $row['status'] ?></td>
+                                <td><?php echo ($row['status']=='1' ? 'Active': 'Inactive') ?></td>
                             
                                 <td>
                                     <a class="btn btn-primary" href="/project/session/edit-session.php?id=<?php echo $row['id'] ?>">Edit</a>
@@ -67,12 +67,12 @@
                                                 
                                                 <!-- Modal body -->
                                                 <div class="modal-body">
-                                               Are you sure you want to delete <b><?php echo $row['course_title'] ?> </b> ? 
+                                               Are you sure you want to delete <b><?php echo $row['title'] ?> </b> ? 
                                                 </div>
                                                 
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                <a href="/project/session/delete-session.php?studentid=<?php echo $row['id'] ?>" class="btn btn-success">Yes</a>
+                                                <a href="/project/session/delete-session.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Yes</a>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                                 </div>
                                                 

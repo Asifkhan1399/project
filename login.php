@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/project/css/style.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
@@ -60,7 +60,7 @@
     
     $_SESSION['userrole'] = $userrole;
     $_SESSION['username'] = $username;
-    header('Location: dashboard.php');
+    header('Location: /project/index.php');
 }
 else{
   echo 'not ok';
