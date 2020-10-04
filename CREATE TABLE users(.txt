@@ -79,3 +79,15 @@ CREATE TABLE distributions(
     category_name varchar(255),
     catagory_value int
 );
+
+CREATE TABLE enrolls(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    session_id int,
+    FOREIGN KEY (session_id) REFERENCES sessions(id),
+    course_id int,
+    FOREIGN KEY (course_id) REFERENCES courses(id),
+    student_id int,
+    FOREIGN KEY (student_id) REFERENCES users(id),
+    section_id int,
+    FOREIGN KEY (section_id) REFERENCES sections(id),
+);
