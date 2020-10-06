@@ -14,8 +14,8 @@
                             </a>
                             <div class="collapse" id="enroll" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/project/enroll/enroll.php">Create Student Enrollment</a>
-                                    <a class="nav-link" href="/project/enroll/enrolllist.php">All Student Enrollment</a>
+                                    <a class="nav-link" href="/project/enroll/enroll.php">Student Enrollment</a>
+                                    <a class="nav-link" href="/project/enroll/elist.php">Show All Enrolled Subject</a>
                                 </nav>
                             </div>
                             <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#section" aria-expanded="false" aria-controls="collapsePages">

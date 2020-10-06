@@ -1,3 +1,15 @@
+<?php 
+    session_start();
+    //authorization
+    if(!$_SESSION['username']){
+      session_destroy();
+      header('Location: /project/index.php');
+    }
+    else if($_SESSION['username'] && $_SESSION['role'] != 'teacher'){
+      session_destroy();
+      header('Location: /project/teacher-index.php');
+    }
+?>
 <?php include '../connection.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,51 +47,47 @@
                             </div>
                             <div class="card-body">
                                <!-- insert your form here -->
-                               <form method="post" action="">
+                               <form method="post" action="distribution.php">
                                   
                                    <div class="form-group">
                                    <label for="">SELECT Course</label>
-                                   <select class="form-control" name="course_id" id="course">
+                                   <select class="form-control" name="course" id="course">
                                         <option value="">Select</option>
-                                        <?php 
-                                            $str = "SELECT id,short_code from courses";
-                                            $results = mysqli_query($conn, $str);
-                                            while($row = mysqli_fetch_array($results)) { ?>
-                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['short_code'] ?></option>
-                                            <?php }
+                                            <?php
+                                        
+                                                $teacher_id = $_SESSION['id'] ;
+                                                $query1 = "SELECT * FROM `course_assign` WHERE teacher_id = $teacher_id";
+                                                $sql1 = mysqli_query($conn, $query1);
+                                                while($row1 = mysqli_fetch_array($sql1)){ 
+                                                    if($row1['status'] == 0){
+                                                
+                                                    $course_id = $row1['course_id'];
+                                                    $query2 = "SELECT * from courses WHERE id = $course_id";
+                                                    $sql2 = mysqli_query($conn, $query2);
+                                                    $row2 = mysqli_fetch_assoc($sql2);
+                                                    
+                                                    $section_id = $row1['section_id'];
+                                                    $query22 = "SELECT * from sections WHERE id = $section_id";
+                                                    $sql22 = mysqli_query($conn, $query22);
+                                                    $row22 = mysqli_fetch_assoc($sql22);
+                                                    ?>
+                                                    <option value="<?php echo $row2['id']; ?>"><?php echo $row2['short_code']." - ".$row22['title']; ?></option>
+                                                    <?php 
+                                                    }
+                                                }
                                         ?>
-                                   </select>
-                                   <div class="form-group">
-                                   <label for="">SELECT Session</label>
-                                   <select class="form-control" name="session_id" id="session">
-                                   <option value="">Select</option>
-                                        <?php 
-                                            $str = "SELECT id,title from sessions";
-                                            $results = mysqli_query($conn, $str);
-                                            while($row = mysqli_fetch_array($results)) { ?>
-                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['title'] ?></option>
-                                            <?php }
-                                        ?>
-                                   </select>
-                                
-                                   <div class="mt-2">
-                                        <button id='add_btn' class="btn btn-warning">Add Category</button>
-                                   </div>
-                                   <div id="dynamic_row"class="form-group row"></div>
-
-                                   <div class="form-group row mt-2">
-                                   <div class="col-6">
-                                        <input type="text" name="category_name[]" placeholder="Give Category" class="form-control">
-                                           </div>
-                                        <div class="col-6">
-                                        <input type="number" name="category_value[]" placeholder="Give Value" class="form-control">
-                                        </div>
-                                   </div>
-                                
-                                   <div class="form-group">
-                                        <input type="submit" value="Submit" name="submit" id="submit" class="btn btn-danger">
-                                        <a class="btn btn-dark" href="/project/mark/dislist.php">List of All Assign Teacher</a>
-                                   </div>
+                                    </select>
+                                    
+                                    <div class="form-group mt-4">
+                                            <button id='add_btn' class="btn btn-warning">Add Category</button>
+                                    </div>
+                                    <div id="dynamic_row"class="form-group row "> </div>
+                                    
+    
+                                    <div class="form-group">
+                                            <input type="submit" value="Submit" name="submit" id="submit" class="btn btn-danger">
+                                            <a class="btn btn-dark" href="/project/mark/show.php">Show</a>
+                                    </div>
                                </form>
                             </div>
                         </div>
@@ -94,8 +102,8 @@
            $("#add_btn").hide();
 
                 $("#course").change(function() {
-                    var course_name = $("#course").val();
-                    if(course_name != "") {
+                    var course = $("#course").val();
+                    if(course != "") {
                         $("#add_btn").show();
                     }
                     else{
@@ -103,24 +111,34 @@
                     }
                 });
 
-                $("#session").change(function() {
-                    var session_name = $("#session").val();
-                    if(session_name != "") {
-                        $("#add_btn").show();
-                    }
-                    else{
-                        $("#add_btn").hide();
-                    }
-                });
+               // $("#session").change(function() {
+                   // var session_name = $("#session").val();
+                    //if(session_name != "") {
+                   //     $("#add_btn").show();
+                   // }
+                   // else{
+                  //      $("#add_btn").hide();
+                   // }
+               // });
+
+               // $("#teacher").change(function() {
+                   // var teacher_name = $("#teacher").val();
+                    //if(teacher_name != "") {
+                    //    $("#add_btn").show();
+                    //}
+                   // else{
+                    //    $("#add_btn").hide();
+                    //}
+               // });
               
                $("#add_btn").click(function(e) {
                    e.preventDefault();
-                   var str = '<div class="col-6 cls">\
-                                        <input type="text" name="category_name[]" placeholder="Give Category" class="form-control">\
-                                        </div>\
-                                        <div class="col-6 cls">\
-                                        <input type="number" name="category_value[]" placeholder="Give Value" class="form-control">\
-                                        </div>';
+                   var str = '<div class="col-md-6 portlets mt-2">\
+                                <input type="text" name="category_name[]" id="" placeholder="Give catagory" class="form-control">\
+                            </div>\
+                            <div class="col-md-6 portlets mt-2">\
+                                <input type="number" name="category_value[]" id="" placeholder="Give number" class="form-control">\
+                            </div>';
                     $("#dynamic_row").append(str);                   
                });
         });
@@ -128,21 +146,26 @@
     </body>
 </html>
 <?php 
-    
     if(isset($_POST['submit'])) {
-        
         $course_id = $_POST['course'];
-        $session_id = $_POST['session'];
+        $query3 = "SELECT * FROM course_assign WHERE course_id = $course_id";
+        $sql3 = mysqli_query($conn, $query3);
+        $row3 = mysqli_fetch_assoc($sql3);
+        $session_id = $row3['session_id'];
+        $section_id = $row3['section_id'];
+        
+        $query4 = "UPDATE `course_assign` SET `status`= 1 WHERE `teacher_id`= $teacher_id AND `course_id`= $course_id";
+        mysqli_query($conn, $query4);
         $total = count($_POST['category_name']);
-        for($i=0;$i<$total;$i++){
-            $category_name = $POST['category_name'][$i];
-            $category_value = $POST['category_value'][$i];
-            //insert portion
-            $str = "INSERT INTO distributions ( course_id, session_id, category_name, category_value)
-                VALUES ($course_id, $session_id, '".$category_name."', $category_value)";
-             mysqli_query($conn, $str);
+ 
+        for($i=0; $i < $total ;$i++){
+            $category_name = $_POST['category_name'][$i];
+            $category_value = $_POST['category_value'][$i];
+
+            $str = "INSERT INTO `distributions`(`course_id`, `session_id`, `teacher_id`, `section_id`, `category_name`, `category_value`) VALUES ($course_id, $session_id,  $teacher_id, $section_id, ' $category_name', $category_value)";
+            mysqli_query($conn, $str);
+            // echo $str;
+            // echo '<br>';
         }
-
     }
-
 ?>

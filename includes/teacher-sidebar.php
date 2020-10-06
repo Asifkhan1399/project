@@ -14,23 +14,23 @@
                             </a>
                             <div class="collapse" id="distribution" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/project/mark/distribution.php">Create Mark Distribution</a>
-                                    <a class="nav-link" href="/project/mark/dislist.php">All Mark Distribution</a>
+                                    <a class="nav-link" href="/project/mark/distribution.php">Set Mark Distribution</a>
+                                    <a class="nav-link" href="/project/mark/show.php">Show Mark Distribution</a>
                                 </nav>
                             </div>
-                            <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#section" aria-expanded="false" aria-controls="collapsePages">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#running" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Manage Section
+                                Manage Running Courses
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="section" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <div class="collapse" id="running" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/project/section/create.php">Create Section</a>
-                                    <a class="nav-link" href="/project/section/list.php">All Sections</a>
+                                    <a class="nav-link" href="/project/mark/running.php">View Running Courses</a>
+                                    <a class="nav-link" href="#"></a>
                                 </nav>
                             </div>
 
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#course" aria-expanded="false" aria-controls="collapsePages">
+                            <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#course" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Manage Course
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>

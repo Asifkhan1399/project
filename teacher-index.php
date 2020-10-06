@@ -1,4 +1,16 @@
-<!DOCTYPE html>
+
+<?php 
+    session_start();
+    //authorization
+    if(!$_SESSION['username']){
+      session_destroy();
+      header('Location: /project/index.php');
+    }
+    else if($_SESSION['username'] && $_SESSION['role'] != 'teacher'){
+      session_destroy();
+      header('Location: /project/teacher-index.php');
+    }
+?><!DOCTYPE html>
 <html lang="en">
     <head>
         <?php include 'includes/head.php'; ?>

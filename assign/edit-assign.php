@@ -88,14 +88,17 @@
                                                 <?php }
                                             ?>
                                         </select>
-                                       <div class="mt-2">
+                                    <div class="form-group">
+                                        <label for="">Status</label>
+                                        <input type="text" value="<?php echo $teacher['status'] ?>" class="form-control" name="status" id="">
+                                    </div>
+                                        <div class="mt-2">
                                     <div class="form-group">
                                         <input class="btn btn-primary" type="submit" name="submit" value="Update Teacher">
 
                                         <a class="btn btn-danger" href="/project/assign/assignlist.php">List of All Assign Teacher</a>
                                     </div>
                                     </div>
-                                    
                                 </form>
                             </div>
                         </div>
@@ -115,9 +118,10 @@
         $session = $_POST['session'];
         $teacher  = $_POST['teacher'];
         $course  = $_POST['course'];
+        $status  = $_POST['status'];
       
         $str = "UPDATE `course_assign` SET course_id = $course, teacher_id = $teacher,
-        section_id = $section, session_id = $session  WHERE id = $id";
+        section_id = $section, session_id = $session, status='".$status."'  WHERE id = $id";
         //echo $str;
         //die();
         if(mysqli_query($conn, $str)) {

@@ -1,11 +1,23 @@
+<?php 
+    session_start();
+    //authorization
+    if(!$_SESSION['username']){
+      session_destroy();
+      header('Location: /project/index.php');
+    }
+    else if($_SESSION['username'] && $_SESSION['role'] != 'student'){
+      session_destroy();
+      header('Location: /project/student-index.php');
+    }
+?>
+<?php include '../includes/head.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php include '../includes/head.php'; ?>
-
+<?php include '../connection.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Assign Teacher</title>
+    <title>All Students</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
         .modal {
@@ -13,25 +25,24 @@
         }
     </style>
 </head>
-
-<body class="sb-nav-fixed">
 <?php include '../connection.php'; ?>
+<body class="sb-nav-fixed">
 <?php include '../includes/nav.php'; ?>
 <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-            <?php include '../includes/sidebar.php'; ?>
+            <?php include '../includes/student-sidebar.php'; ?>
             </div>
             <div id="layoutSidenav_content">
             <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">List of All Assign Teachers</h1>
+                        <h1 class="mt-4">List of All Enrolled Students</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">All Teachers</li>
+                            <li class="breadcrumb-item active">Enrolled Students</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                List of All Assign Teachers
+                                Enrolled Students
                             </div>
     <div class="container">
 
@@ -40,33 +51,39 @@
                 
                 <table class="table table-dark table-striped">
                     <thead>
-                        <th>Teacher </th>
+                        <th>Student</th>
+                        <th>Roll</th>
                         <th>Course</th>
-                        <th>Session</th>
+                        <th>Course</th>
+                        <th>Course Type</th>
+                        <th>Session Credit</th>
                         <th>Section</th>
-                        <th>Status</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
+
                     <?php 
-                        $str = "SELECT ca.id, c.course_title as ctitle,
-                                c.short_code, u.name as uname, ss.title as sstitle
-                                , sc.title as sctitle, ca.status FROM course_assign as ca
-                                INNER JOIN courses as c ON ca.course_id=c.id
-                                INNER JOIN users as u ON ca.teacher_id=u.id
-                                INNER JOIN sessions as ss ON ca.session_id=ss.id
-                                INNER JOIN sections as sc ON ca.section_id=sc.id";
+                        $str = "SELECT en.id, c.course_type as ctype, c.credit,
+                                c.short_code, u.name as uname,u.roll, ss.title as sstitle,
+                                sc.title as sctitle FROM enrolls as en
+                               INNER JOIN courses as c ON en.course_id=c.id
+                               INNER JOIN users as u ON en.student_id=u.id
+                               INNER JOIN sessions as ss ON en.session_id=ss.id
+                               INNER JOIN sections as sc ON en.section_id=sc.id";
                         $results = mysqli_query($conn, $str);
-                        while($row = mysqli_fetch_array($results)) {  ?>
+                        while($row = mysqli_fetch_array($results)) { 
+                            if ($row['uname']===$_SESSION["username"]) {?>
                             <tr>
+                                
                                 <td><?php echo $row['uname'] ?></td>
+                                <td><?php echo $row['roll'] ?></td>
                                 <td><?php echo $row['short_code'] ?></td>
+                                <td><?php echo $row['ctype'] ?></td>
+                                <td><?php echo $row['credit'] ?></td>
                                 <td><?php echo $row['sstitle'] ?></td>
                                 <td><?php echo $row['sctitle'] ?></td>
-                                <td><?php echo ($row['status'] == '1' ? 'Active' : 'Inactive') ?></td>
-                            
                             <td>
-                                    <a class="btn btn-primary" href="/project/assign/edit-assign.php?id=<?php echo $row['id'] ?>">Edit</a>
+                                    <a class="btn btn-primary" href="/project/course/edit-course.php?id=<?php echo $row['id'] ?>">Edit</a>
                                     <a class="btn btn-danger" data-toggle="modal" data-target="#mm<?php echo $row['id'] ?>">Delete</a>
                                     <div class="modal" id="mm<?php echo $row['id'] ?>">
                                         <div class="modal-dialog">
@@ -80,12 +97,12 @@
                                                 
                                                 <!-- Modal body -->
                                                 <div class="modal-body">
-                                               Are you sure you want to delete <b><?php echo $row['name'] ?> </b> ? 
+                                               Are you sure you want to delete <b><?php echo $row['course_title'] ?> </b> ? 
                                                 </div>
                                                 
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                <a href="/project/assign/delete-assign.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Yes</a>
+                                                <a href="/project/course/delete-course.php?studentid=<?php echo $row['id'] ?>" class="btn btn-success">Yes</a>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                                 </div>
                                                 
@@ -94,7 +111,7 @@
                                     </div>
                                 </td>
                             </tr>  
-                            <?php }
+                            <?php }}
                     ?>
                         
                     </tbody>

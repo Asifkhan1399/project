@@ -53,17 +53,36 @@
        $q = mysqli_query($conn, $str);
        $result = mysqli_fetch_array($q);
 
- if($result) {
+       $role = $result['role'];
+       //admin login
+       if($role == 'admin'){
+        $username = $result['name'];
+        $_SESSION['username'] = $username; 
+          $_SESSION['role'] = $role;
+          header('Location: /project/index.php');
+      }
+      //teacher login
+      else if($role == "teacher"){
+          $username = $result['name'];
+          $id = $result['id'];
+          $_SESSION['username'] = $username; 
+          $_SESSION['id'] = $id; 
+          $_SESSION['role'] = $role;
+        header('Location: /project/teacher-index.php');
+      }
+      //student login
+      else if($role == "student"){
+        $username = $result['name'];
+        $id = $result['id'];
+        $_SESSION['username'] = $username; 
+        $_SESSION['id'] = $id; 
+        $_SESSION['role'] = $role;
+      header('Location: /project/student-index.php');
+    }
+      else {
+        echo "Wrong email or password";
+      }
 
-    $username = $result['name'];
-    $userrole = $result['role'];
-    
-    $_SESSION['userrole'] = $userrole;
-    $_SESSION['username'] = $username;
-    header('Location: /project/index.php');
-}
-else{
-  echo 'not ok';
-}
+ 
  }
 ?>
