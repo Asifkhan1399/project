@@ -41,7 +41,19 @@
                                <form method="post" action="">
                                     
                                    <div class="form-group">
-                       
+                                   
+                                   <div class="form-group">
+                                   <label for=""><b>Student ID</b></label>
+                                   <select class="form-control" name="student_id" id="">
+                                        <option value="">Select</option>
+                                        <?php 
+                                            $str = "SELECT id,roll from users WHERE role='student'";
+                                            $results = mysqli_query($conn, $str);
+                                            while($row = mysqli_fetch_array($results)) { ?>
+                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['roll'] ?></option>
+                                            <?php }
+                                        ?>
+                                   </select>
                                    <div class="form-group">
                                    <label for=""><b>All Courses</b></label><br>
                             
@@ -99,10 +111,8 @@
     
     if(isset($_POST['submit'])) {
         
-      $course_len = $_POST['course_id'];
-      $course_len = count($course_ids);
-      for($i=0; $i<$course_len ; $i++){
-      $course_id = $course_ids[$i];
+      $course_id = $_POST['course_id'];
+      
       $session_id = $_POST['session_id'];
       $section_ids = $_POST['section_id'];
       $student_id = $_POST['student_id'];
@@ -112,8 +122,8 @@
           $str = "INSERT INTO enrolls (student_id, course_id, session_id, section_id)
                 VALUES ($student_id, $course_id, $session_id, $section_id)";
           mysqli_query($conn, $str);
-      }}
-      header('Location: /project/enroll/elist.php');
+      }
+     
     }
 
 ?>

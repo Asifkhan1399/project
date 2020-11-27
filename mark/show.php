@@ -54,6 +54,7 @@
                         <th>ID </th>
                         <th>Course </th>
                         <th>Session</th>
+                        <th>Section</th>
                         <th>Category Name</th>
                         <th>Mark Distribution</th>
                     </thead>
@@ -69,16 +70,22 @@
                       $query1= "SELECT * FROM `courses` WHERE id = $course_id";
                       $sql1 = mysqli_query($conn, $query1);
                       $row1 = mysqli_fetch_assoc($sql1);
- 
+
                       $session_id = $row['session_id'];
                       $query2= "SELECT * FROM `sessions` WHERE id = $session_id";
                       $sql2 = mysqli_query($conn, $query2);
                       $row2 = mysqli_fetch_assoc($sql2);
+ 
+                      $section_id = $row['section_id'];
+                      $query3= "SELECT * FROM `sections` WHERE id = $section_id";
+                      $sql3 = mysqli_query($conn, $query3);
+                      $row3 = mysqli_fetch_assoc($sql3);
                       ?> 
                       <tr class="active">
                         <td> <?php echo $i; ?> </td>
                         <td> <?php echo $row1['short_code']; ?> </td>
                         <td> <?php echo $row2['title']; ?> </td>
+                        <td> <?php echo $row3['title']; ?> </td>
                         <td> <?php echo $row['category_name']; ?> </td>
                         <td> <?php echo $row['category_value']; ?> </td>
                       </tr>

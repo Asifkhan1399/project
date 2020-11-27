@@ -80,7 +80,7 @@
                                                 
                                                 <!-- Modal body -->
                                                 <div class="modal-body">
-                                               Are you sure you want to delete <b><?php echo $row['name'] ?> </b> ? 
+                                               Are you sure you want to delete <b><?php echo $row['uname'] ?> </b> ? 
                                                 </div>
                                                 
                                                 <!-- Modal footer -->

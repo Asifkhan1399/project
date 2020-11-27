@@ -1,5 +1,8 @@
-
-<?php include '../connection.php'; ?>
+<?php include '../connection.php';
+    // ob_start();
+    ob_start();
+    ob_end_flush();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,7 +30,7 @@
                             </div>
                             <div class="card-body">
                                <!-- insert your form here -->
-                               <form method="post" action="assign/assign.php">
+                               <form method="post" action="">
                                     
                                    <div class="form-group">
                                    <label for="">SELECT Teacher</label>
@@ -102,14 +105,15 @@
     </body>
 </html>
 <?php 
-    
+    ob_start();
+    ob_end_flush();
     if(isset($_POST['submit'])) {
         if($_POST['status'] == "on") {
             $status = true;
-          }
-          else {
+        }
+        else {
             $status = false;
-          }
+        }
         
       $course_id = $_POST['course_id'];
       $teacher_id = $_POST['teacher_id'];
@@ -128,5 +132,4 @@
     //   $str = "INSERT INTO users (name, email, role) VALUES ('".$name."', '".$email."','teacher')";
     //   mysqli_query($conn, $str);
     }
-
 ?>

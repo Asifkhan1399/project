@@ -1,3 +1,7 @@
+<?php
+    ob_start();
+    ob_end_flush();
+    ?>
 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
