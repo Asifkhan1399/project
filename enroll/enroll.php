@@ -1,3 +1,22 @@
+<?php 
+    session_start();
+    $id=$_SESSION['userid'];
+    echo $id;
+    //authorization
+    if(!$_SESSION['userid']){
+      //session_destroy();
+      header('Location: /project/index.php');
+    }
+    else if($_SESSION['userid'] && $_SESSION['role'] != 'student'){
+      //session_destroy();
+      header('Location: student-index.php');
+    }
+?>
+<!--?php
+   session_start();
+   if($_SESSION['student_login_status']!="loged in" and ! isset($_SESSION['userid']) )
+    header("Location: index.php");
+?-->
 <?php include '../connection.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,8 +36,10 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Student Enroll</li>
                         </ol>
-                       
-                       
+                        <div class="row">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-6">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
@@ -27,34 +48,9 @@
                             <div class="card-body">
                                <!-- insert your form here -->
                                <form method="post" action="">
-                                    
                                    <div class="form-group">
-                                   
                                    <div class="form-group">
-                                   <label for="">Student ID</label>
-                                   <select class="form-control" name="student_id" id="">
-                                        <option value="">Select</option>
-                                        <?php 
-                                            $str = "SELECT id,name from users WHERE role='student'";
-                                            $results = mysqli_query($conn, $str);
-                                            while($row = mysqli_fetch_array($results)) { ?>
-                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name'] ?></option>
-                                            <?php }
-                                        ?>
-                                   </select>
-                                   <label for="">SELECT Course</label>
-                                   <select class="form-control" name="course_id" id="">
-                                        <option value="">Select</option>
-                                        <?php 
-                                            $str = "SELECT id,short_code from courses";
-                                            $results = mysqli_query($conn, $str);
-                                            while($row = mysqli_fetch_array($results)) { ?>
-                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['short_code'] ?></option>
-                                            <?php }
-                                        ?>
-                                   </select>
-                                   <div class="form-group">
-                                   <label for="">SELECT Session</label>
+                                   <label for=""><b>SELECT Session</b></label>
                                    <select class="form-control" name="session_id" id="">
                                    <option value="">Select</option>
                                         <?php 
@@ -66,19 +62,28 @@
                                         ?>
                                    </select>
                                    <div class="form-group">
-                                   <label for="">SELECT Section</label><br>
+                                   <label for=""><b>All Courses</b></label><br>
+
                                         <?php 
-                                            $str = "SELECT id,title from sections";
+                                            $str = "SELECT * from courses";
                                             $results = mysqli_query($conn, $str);
                                             while($row = mysqli_fetch_array($results)) { ?>
-                                                <input name="section_id[]" type="checkbox" value="<?php echo $row['id']; ?>">
-                                                <?php echo $row['title'] ?>
+                                               <input name="course_id[]" type="checkbox" value="<?php echo $row['id']; ?>">
+                                                <?php echo $row['short_code']." -- ".$row['course_type']." -- ".$row['credit']?>
+                                            <select class="form-control" name="section_id[]" id="">
+                                                <option value="">Select</option>
+                                               <?php 
+                                                  $str1 = "SELECT * from sections";
+                                                  $results1 = mysqli_query($conn, $str1);
+                                                  while($row1 = mysqli_fetch_array($results1)) { ?>
+                                                  <option value="<?php echo $row1['id']; ?>"><?php echo $row1['title'] ?></option>
+                                               <?php }
+                                            ?>
+                                            </select>
                                             <?php }
                                         ?>
-                                    </select>
-                       
                                    </div>
-                                
+
                                    <div class="form-group">
                                         <input type="submit" value="Enroll" name="submit" class="btn btn-danger">
                                         <a class="btn btn-dark" href="/project/enroll/elist.php">Enrolled Details</a>
@@ -86,6 +91,11 @@
                                </form>
                             </div>
                         </div>
+                        </div>
+                        <div class="col-3">
+                        </div>
+                        </div>
+                        
                     </div>
                 </main>
                 <?php include '../includes/footer.php'; ?>
@@ -94,22 +104,25 @@
        <?php include '../includes/scripts.php'; ?>
     </body>
 </html>
-<?php 
-    
-    if(isset($_POST['submit'])) {
-        
-      $course_id = $_POST['course_id'];
-      $session_id = $_POST['session_id'];
-      $section_ids = $_POST['section_id'];
-      $student_id = $_POST['student_id'];
-      $section_len = count($section_ids);
-      for($i=0; $i<$section_len; $i++){
-          $section_id = $section_ids[$i];
-          $str = "INSERT INTO enrolls (student_id, course_id, session_id, section_id)
-                VALUES ($student_id, $course_id, $session_id, $section_id)";
-          mysqli_query($conn, $str);
-      }
-      header('Location: /project/enroll/elist.php');
-    }
 
+<?php 
+include '../includes/connection.php';
+if(isset($_POST['submit'])) {
+  $session_id = $_POST['session_id'];
+  $course_ids = $_POST['course_id'];
+  $section_ids = $_POST['section_id'];
+  $course_len = count($course_ids);
+  for($i=0; $i<$course_len ; $i++)
+   {
+      $course_id = $course_ids[$i];
+      $section_id = $section_ids[$i];
+    //   $student_id = $_POST['student_id'];
+
+      $str = "INSERT INTO enrolls (session_id, course_id, student_id, section_id) VALUES ($session_id, $course_id, $id, $section_id)";
+     (mysqli_query($conn, $str));
+    }  
+        //header('Location: enroll/elist.php');
+        echo 'Inserted Successfully!';
+    
+}
 ?>
