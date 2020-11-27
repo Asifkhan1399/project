@@ -73,7 +73,7 @@
                                     <div class="form-group" id="crs">
                                         <label for="">SELECT Course</label>
                                         <select class="form-control" name="course" id="course">       
-                                        </select>   
+                                        </select>  
                                     </div>
                                     <div class="form-group mt-4">
                                         <button name="add_btn" id="add_btn" class="btn btn-warning">Add Category</button>
@@ -192,7 +192,7 @@
             $category_name = $_POST['category_name'][$i];
             $category_value = $_POST['category_value'][$i];
 
-            $str = "INSERT INTO `distributions`(`course_id`, `session_id`, `teacher_id`, `section_id`, `category_name`, `category_value`)
+            $str = "INSERT INTO `distributions`(`course_id`, `teacher_id`, `session_id`, `section_id`, `category_name`, `category_value`)
             VALUES ($course_id, $teacher_id, $session_id, $section_id '$category_name', $category_value)";
             mysqli_query($conn, $str);
             echo $str;
