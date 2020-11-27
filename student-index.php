@@ -1,3 +1,24 @@
+<?php 
+    session_start();
+    // $id=$_SESSION['userid'];
+    // echo $id;
+    //authorization
+    // if(!$_SESSION['userid']){
+    //   //session_destroy();
+    //   header('Location: /project/index.php');
+    // }
+    // else if($_SESSION['userid'] && $_SESSION['role'] != 'student'){
+    //   //session_destroy();
+    //   header('Location: student-index.php');
+    // }
+?>
+
+<!--?php
+   session_start();
+   if($_SESSION['student_login_status']!="loged in" and ! isset($_SESSION['userid']) )
+    header("Location: index.php");
+?-->
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,6 +29,7 @@
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
             <?php include 'includes/student-sidebar.php'; ?>
+            
             </div>
             <div id="layoutSidenav_content">
                 <main>
